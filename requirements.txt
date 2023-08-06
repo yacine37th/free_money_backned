@@ -7,11 +7,13 @@ Django==3.1.8
 django-filter==2.4.0
 djangorestframework==3.12.2
 djangorestframework-simplejwt==4.6.0
+gunicorn==21.2.0
 httpie==3.2.2
 idna==3.4
 markdown-it-py==3.0.0
 mdurl==0.1.2
 multidict==6.0.4
+packaging==23.1
 Pillow==10.0.0
 Pygments==2.15.1
 PyJWT==2.7.0
@@ -22,3 +24,4 @@ requests-toolbelt==1.0.0
 rich==13.4.2
 sqlparse==0.4.1
 urllib3==2.0.3
+whitenoise==6.5.0
