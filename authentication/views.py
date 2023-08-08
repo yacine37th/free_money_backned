@@ -20,17 +20,16 @@ class RegisterView(generics.CreateAPIView):
 
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
 class UserDetailsView(generics.RetrieveAPIView):
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
 
 class CustomAuthToken(ObtainAuthToken):
-
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
