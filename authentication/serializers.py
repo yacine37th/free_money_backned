@@ -38,12 +38,3 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name')
 
-class CustomJWTSerializer(JSONWebTokenSerializer):
-    def validate(self, attrs):
-        data = super(CustomJWTSerializer, self).validate(attrs)
-
-        # Add user_id to the response data
-        user = self.user
-        data['user_id'] = user.pk
-
-        return data
