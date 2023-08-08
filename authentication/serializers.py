@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from rest_framework_jwt.serializers import JSONWebTokenSerializer
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -37,3 +38,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name')
 
+class CustomJWTSerializer(JSONWebTokenSerializer):
+    def validate(self, attrs):
+        data = super(CustomJWTSerializer, self).validate(attrs)
+
+        # Add user_id to the response data
+        user = self.user
+        data['user_id'] = user.pk
+
+        return data
