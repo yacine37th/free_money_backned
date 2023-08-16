@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Offer, CompletedOffer
+from .models import Offer, OfferLog
 
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
         fields = ('id', 'name', 'description', 'image_url','payout_amount', 'url')
 
-class CompletedOfferSerializer(serializers.ModelSerializer):
+class OfferLogSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CompletedOffer
-        fields = ('user', 'offer', 'completed_at')
+        model = OfferLog
+        fields = ('user', 'offer', 'offer_amount', 'log_date')

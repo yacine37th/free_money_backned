@@ -4,7 +4,8 @@ from .serializers import OfferSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import CompletedOffer
+from .models import OfferLog
+from .serializers import OfferLogSerializer
 
 
 class OfferListAPIView(generics.ListAPIView):
@@ -16,17 +17,10 @@ class OfferDetailAPIView(generics.RetrieveAPIView):
     serializer_class = OfferSerializer
 
 
-class CompleteOfferView(APIView):
-    def post(self, request, offer_id):
-        offer = Offer.objects.get(pk=offer_id)
-        user = request.user
 
-        # Check if the user has already completed this offer
-        if CompletedOffer.objects.filter(user=user, offer=offer).exists():
-            return Response({"message": "You have already completed this offer."}, status=status.HTTP_400_BAD_REQUEST)
+class OfferLogListView(generics.ListCreateAPIView):
+    queryset = OfferLog.objects.all()
+    serializer_class = OfferLogSerializer
 
-        # Create a new CompletedOffer instance
-        completed_offer = CompletedOffer(user=user, offer=offer)
-        completed_offer.save()
-
-        return Response({"message": "Offer completed successfully."}, status=status.HTTP_201_CREATED)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

@@ -12,10 +12,11 @@ class Offer(models.Model):
         return self.name
 
 
-class CompletedOffer(models.Model):
+class OfferLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
-    completed_at = models.DateTimeField(auto_now_add=True)
+    offer_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    log_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.offer.name}"
+        return f"{self.user.username} - {self.offer.name} - {self.log_date}"
