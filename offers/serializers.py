@@ -4,4 +4,4 @@ from .models import Offer
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
-        fields = ('id', 'name', 'description', 'payout_amount', 'url')
+        fields = ('id', 'name', 'description', 'image_url','payout_amount', 'url')
