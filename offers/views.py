@@ -23,4 +23,5 @@ class OfferLogListView(generics.ListCreateAPIView):
     serializer_class = OfferLogSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        user_id = self.request.data.get('user_id')
+        serializer.save(user_id=user_id)
