@@ -10,3 +10,9 @@ class OfferLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfferLog
         fields = ('user', 'offer', 'offer_amount', 'log_date')
+
+
+class OfferLogCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OfferLog
+        fields = ('user', 'offer', 'offer_amount')
