@@ -147,3 +147,13 @@ STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# email settings
+
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER = 'support@httpfreemoney.info'
+EMAIL_HOST_PASSWORD = 'abdou0792A*'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
