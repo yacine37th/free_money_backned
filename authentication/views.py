@@ -25,26 +25,31 @@ def send_verification_code(request):
     serializer.is_valid(raise_exception=True)
     email = serializer.validated_data['email']
 
-    verification_code = generate_verification_code()  # Implement this function
-
-    print(f"Email: {email}")
-    print(f"Verification Code: {verification_code}")
-
+    # Check if an EmailVerification record with the same email exists
     try:
+        verification_obj = EmailVerification.objects.get(email=email)
+    except EmailVerification.DoesNotExist:
+        verification_obj = None
+
+    if verification_obj:
+        # If a record already exists, update it with a new verification code
+        verification_obj.verification_code = generate_verification_code()
+        verification_obj.save()
+    else:
+        # If no record exists, create a new one
+        verification_code = generate_verification_code()
         EmailVerification.objects.create(email=email, verification_code=verification_code)
 
-        send_mail(
-            'FreeMoney Verification Code',
-            f'Your FreeMoney verification code is: {verification_code}',
-            'support@httpfreemoney.com',  # Replace with your sending email
-            [email],
-            fail_silently=False,
-        )
+    # Send the verification email
+    send_mail(
+        'FreeMoney Verification Code',
+        f'Your FreeMoney verification code is: {verification_code}',
+        'support@httpfreemoney.com',
+        [email],
+        fail_silently=False,
+    )
 
-        return Response({'message': 'Verification code sent'})
-    except Exception as e:
-        print(f"Error sending verification code email: {e}")
-        return Response({'error': 'Internal server error'}, status=500)
+    return Response({'message': 'Verification code sent'})
 
 
 @api_view(['POST'])
