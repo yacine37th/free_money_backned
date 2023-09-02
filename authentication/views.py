@@ -25,17 +25,14 @@ def send_verification_code(request):
     serializer.is_valid(raise_exception=True)
     email = serializer.validated_data['email']
 
-    # Check if an EmailVerification record with the same email exists
+    # Try to get the EmailVerification record by email
     try:
         verification_obj = EmailVerification.objects.get(email=email)
-    except EmailVerification.DoesNotExist:
-        verification_obj = None
 
-    if verification_obj:
         # If a record already exists, update it with a new verification code
         verification_obj.verification_code = generate_verification_code()
         verification_obj.save()
-    else:
+    except EmailVerification.DoesNotExist:
         # If no record exists, create a new one
         verification_code = generate_verification_code()
         EmailVerification.objects.create(email=email, verification_code=verification_code)
@@ -50,7 +47,6 @@ def send_verification_code(request):
     )
 
     return Response({'message': 'Verification code sent'})
-
 
 @api_view(['POST'])
 def verify_verification_code(request):
