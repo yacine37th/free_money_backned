@@ -1,7 +1,7 @@
 from django.db import models
 
 class EmailVerification(models.Model):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=False)
     verification_code = models.CharField(max_length=6)
     verified = models.BooleanField(default=False)
 
