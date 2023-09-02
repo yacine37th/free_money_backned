@@ -27,17 +27,25 @@ def send_verification_code(request):
 
     verification_code = generate_verification_code()  # Implement this function
 
-    EmailVerification.objects.create(email=email, verification_code=verification_code)
+    print(f"Email: {email}")
+    print(f"Verification Code: {verification_code}")
 
-    send_mail(
-        'FreeMoney Verification Code',
-        f'Your FreeMoney verification code is: {verification_code}',
-        'support@httpfreemoney.com',  # Replace with your sending email
-        [email],
-        fail_silently=False,
-    )
+    try:
+        EmailVerification.objects.create(email=email, verification_code=verification_code)
 
-    return Response({'message': 'Verification code sent'})
+        send_mail(
+            'FreeMoney Verification Code',
+            f'Your FreeMoney verification code is: {verification_code}',
+            'support@httpfreemoney.com',  # Replace with your sending email
+            [email],
+            fail_silently=False,
+        )
+
+        return Response({'message': 'Verification code sent'})
+    except Exception as e:
+        print(f"Error sending verification code email: {e}")
+        return Response({'error': 'Internal server error'}, status=500)
+
 
 @api_view(['POST'])
 def verify_verification_code(request):
