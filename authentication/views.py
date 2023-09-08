@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import EmailVerification
-from .serializers import VerificationCodeSerializer, VerifyCodeSerializer
+from .serializers import VerificationCodeSerializer
 import random
 
 def generate_verification_code():
