@@ -73,18 +73,6 @@ def email_verification(request):
             return Response({'error': 'Email not found'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-def verify_verification_code(request):
-    serializer = VerifyCodeSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    email = serializer.validated_data['email']
-
-    verification_obj = EmailVerification.objects.get(email=email)
-    verification_obj.verified = True
-    verification_obj.save()
-
-    return Response({'message': 'Email verified'})
-
 # class CustomObtainJSONWebToken(ObtainJSONWebToken):
 #     serializer_class = CustomJWTSerializer
 

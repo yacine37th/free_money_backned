@@ -154,6 +154,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_HOST_USER = 'support@httpfreemoney.info'
 EMAIL_HOST_PASSWORD = 'abdou0792A*'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+01100691655
