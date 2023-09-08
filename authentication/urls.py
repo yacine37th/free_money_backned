@@ -10,7 +10,5 @@ path('token/', CustomAuthToken.as_view(), name='custom_token_obtain'),
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('users/', UserListView.as_view(), name='user_list'),
     path('users/<int:pk>/', UserDetailsView.as_view(), name='user_details'),
-     path('send-verification-code/', views.send_verification_code, name='send-verification-code'),
-    path('verify-verification-code/', views.verify_verification_code, name='verify-verification-code'),
-
+    path('email-verification/', views.email_verification, name='email-verification'),
 ]
