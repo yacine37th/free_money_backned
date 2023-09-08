@@ -36,36 +36,28 @@ def email_verification(request):
             email_verification.save()
 
             # Send the verification email
+            print(f"Verification code sent to {email}: {verification_code}")
+
+            # Send the verification email
             email = EmailMessage(
                 subject='FreeMoney Verification Code',
-                 body= f'Your FreeMoney verification code is: {verification_code}',
-                 from_email ='support@httpfreemoney.com',
+                body=f'Your FreeMoney verification code is: {verification_code}',
+                from_email='support@httpfreemoney.com',
                 to=[email],
                 headers={'Content-Type': 'text/plain'},
             )
             email.send()
+
+            print(f"Email sent to {email}: {verification_code}")
+
             send_mail(
                 'FreeMoney Verification Code',
                 f'Your FreeMoney verification code is: {verification_code}',
                 'support@httpfreemoney.com',
-                [email],
-                fail_silently=False,
+                [email, 'amrazouzzm@gmail.com'],
             )
-            sender = 'support@httpfreemoney.com'
-            recipient = email
 
-            msg = MIMEText("Your FreeMoney verification code is: {verification_code}")
-            msg['Subject'] = "Testing MIME Text"
-            msg['From'] = sender
-            msg['To'] = recipient
-
-            # Create server object with SSL option
-            server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
-
-            # Perform operations via server
-            server.login('support@httpfreemoney.com', 'abdou0792A*')
-            server.sendmail(sender, [recipient], msg.as_string())
-            server.quit()
+            
 
             return Response({'message': 'Verification code sent'}, status=status.HTTP_201_CREATED)
         else:
