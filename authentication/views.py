@@ -34,12 +34,14 @@ def email_verification(request):
             email_verification.save()
 
             # Send the verification email
-            EmailMessage(
+            email = EmailMessage(
                 subject='FreeMoney Verification Code',
                  body= f'Your FreeMoney verification code is: {verification_code}',
                  from_email ='support@httpfreemoney.com',
                 to=[email],
+                headers={'Content-Type': 'text/plain'},
             )
+            email.send()
             send_mail(
                 'FreeMoney Verification Code',
                 f'Your FreeMoney verification code is: {verification_code}',
