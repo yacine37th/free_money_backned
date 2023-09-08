@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view
 from .models import EmailVerification
 from .serializers import VerificationCodeSerializer
 import random
+import smtplib
+from email.mime.text import MIMEText
 
 def generate_verification_code():
     # Generate a 6-digit random verification code
@@ -49,6 +51,21 @@ def email_verification(request):
                 [email],
                 fail_silently=False,
             )
+            sender = 'support@httpfreemoney.com'
+            recipient = email
+
+            msg = MIMEText("Your FreeMoney verification code is: {verification_code}")
+            msg['Subject'] = "Testing MIME Text"
+            msg['From'] = sender
+            msg['To'] = recipient
+
+            # Create server object with SSL option
+            server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+
+            # Perform operations via server
+            server.login('support@httpfreemoney.com', 'abdou0792A*')
+            server.sendmail(sender, [recipient], msg.as_string())
+            server.quit()
 
             return Response({'message': 'Verification code sent'}, status=status.HTTP_201_CREATED)
         else:
