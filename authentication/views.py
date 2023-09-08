@@ -7,6 +7,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import EmailVerification
@@ -33,6 +34,12 @@ def email_verification(request):
             email_verification.save()
 
             # Send the verification email
+            EmailMessage(
+                'FreeMoney Verification Code',
+                f'Your FreeMoney verification code is: {verification_code}',
+                'support@httpfreemoney.com',
+                [email],
+            )
             send_mail(
                 'FreeMoney Verification Code',
                 f'Your FreeMoney verification code is: {verification_code}',
