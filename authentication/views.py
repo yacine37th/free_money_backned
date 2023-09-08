@@ -35,10 +35,10 @@ def email_verification(request):
 
             # Send the verification email
             EmailMessage(
-                'FreeMoney Verification Code',
-                f'Your FreeMoney verification code is: {verification_code}',
-                'support@httpfreemoney.com',
-                [email],
+                subject='FreeMoney Verification Code',
+                 body= f'Your FreeMoney verification code is: {verification_code}',
+                 from_email ='support@httpfreemoney.com',
+                to=[email],
             )
             send_mail(
                 'FreeMoney Verification Code',
