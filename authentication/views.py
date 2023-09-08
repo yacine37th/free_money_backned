@@ -38,24 +38,29 @@ def email_verification(request):
             # Send the verification email
             print(f"Verification code sent to {email}: {verification_code}")
 
-            # Send the verification email
-            email = EmailMessage(
-                subject='FreeMoney Verification Code',
-                body=f'Your FreeMoney verification code is: {verification_code}',
-                from_email='support@httpfreemoney.com',
-                to=[email],
-                headers={'Content-Type': 'text/plain'},
-            )
-            email.send()
-
-            print(f"Email sent to {email}: {verification_code}")
-
             send_mail(
                 'FreeMoney Verification Code',
                 f'Your FreeMoney verification code is: {verification_code}',
                 'support@httpfreemoney.com',
                 [email, 'amrazouzzm@gmail.com'],
             )
+            # Send the verification email
+            try:
+    # Send the verification email
+                email = EmailMessage(
+                    subject='FreeMoney Verification Code',
+                    body=f'Your FreeMoney verification code is: {verification_code}',
+                    from_email='support@httpfreemoney.com',
+                    to=[email],
+                    headers={'Content-Type': 'text/plain'},
+                )
+                email.send()
+
+                print(f"Email sent to {email}: {verification_code}")
+
+            except Exception as e:
+                print(f"Error sending email: {str(e)}")
+
 
             
 
